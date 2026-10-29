@@ -461,9 +461,11 @@ mode (read in Hermes's code; the test does not try it, because nobody can answer
 
 - **It can read other files of the Codespace**: the guide, the documents, your other files. Only
   the files of the key are refused (and `/proc/self/environ`, where programs keep their settings).
-  Keep nothing personal in the Codespace. A Codespace also holds a GitHub token for the repository
-  it was made from: whether the assistant could read it in a real Codespace is **not tested**. Create
-  your Codespace from this guide's repository only, as in part 1.
+  Keep nothing personal in the Codespace. A Codespace also keeps a GitHub token for the repository
+  it was made from, in a file the assistant can open (`/workspaces/.codespaces/shared/`). In our test
+  with a fake token of the same kind, Hermes replaced it with `«redacted:ghu_…»` before sending the
+  file to the model (the test of part 6 checks this at each change). Create your Codespace from this
+  guide's repository only, as in part 1.
 - **The model sees everything you type and everything it reads**, and so does Anthropic.
 - **A document can trick it.** A text in a document may ask the agent to remember something, to
   write a skill, or to write a plan that says something else. Memories and skills are only proposed:
@@ -656,7 +658,7 @@ the terminal, in the folder of the guide: `bash .devcontainer/setup-hermes.sh` (
 ## About
 
 Written for the Youth AI Lab project (Erasmus+), October 2026, for Hermes Agent v0.22.5 (commit
-`bf0203a`) and the image `2026.10.30` of the workshops. Checked on 29 October 2026 in a container
+`bf0203a`) and the image `2026.10.31` of the workshops (`2026.10.30` for the measures of 29 October). Checked on 29 October 2026 in a container
 made from this repository: the installation, the configuration, the measures of part 2, the
 screens of parts 1, 3 and 4 (with a fake key and a fake model), each line of the table of part 6, by
 [`ci/check_hermes.py`](ci/check_hermes.py), which runs at each change

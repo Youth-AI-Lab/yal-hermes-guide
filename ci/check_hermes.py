@@ -32,6 +32,8 @@ SKILL = ("---\nname: ci-check\ndescription: Use when testing this guide. Nothing
 INSIDE = ASSISTANT / "plans" / "ci-check.md"
 OUTSIDE = HOME / "outside-of-the-folder.txt"
 KNOWLEDGE = ASSISTANT / "knowledge" / "ci-check.md"
+# A file like the one where a Codespace keeps its GitHub token (/workspaces/.codespaces/shared/).
+TOKEN_FILE = Path("/tmp/ci-codespace-secrets.json")
 # Writing AGENTS.md is not asked here: Hermes always asks a person first (its own rule for the files
 # of instructions), and in this test nobody can answer, so it would wait 5 minutes before refusing.
 AGENTS = ASSISTANT / "AGENTS.md"
@@ -56,6 +58,7 @@ SCRIPT = [
     {"tool_calls": [{"name": "tool_call", "arguments": {"calls": [
         {"name": "session_search", "arguments": {"query": "asthma"}}]}}]},
     {"tool_calls": [{"name": "write_file", "arguments": {"path": str(KNOWLEDGE), "content": "x\n"}}]},
+    {"tool_calls": [{"name": "read_file", "arguments": {"path": str(TOKEN_FILE)}}]},
     {"text": "DONE"},
 ]
 
@@ -79,7 +82,7 @@ def clean_up(bashrc, agents):
     subprocess.run(["hermes", "auth", "remove", "anthropic", "ci-fake"], capture_output=True, timeout=60)
     (HOME / ".bashrc").write_bytes(bashrc)
     AGENTS.write_bytes(agents)
-    for path in (INSIDE, OUTSIDE, KNOWLEDGE, MARKER):
+    for path in (INSIDE, OUTSIDE, KNOWLEDGE, MARKER, TOKEN_FILE):
         path.unlink(missing_ok=True)
     for folder in (HERMES / "pending" / "memory", HERMES / "pending" / "skills"):
         for record in folder.glob("*") if folder.is_dir() else []:
@@ -89,6 +92,7 @@ def clean_up(bashrc, agents):
 
 def main():
     MARKER.unlink(missing_ok=True)
+    TOKEN_FILE.write_text('{"GITHUB_TOKEN": "ghu_CIFAKECODESPACETOKEN0000"}\n')
     bashrc, agents = (HOME / ".bashrc").read_bytes(), AGENTS.read_bytes()
     checks, run, requests = [], None, []
     work = Path(tempfile.mkdtemp(prefix="hermes-ci-"))
@@ -171,6 +175,8 @@ def main():
                 ("the documents of knowledge/ cannot be changed",
                  "outside HERMES_WRITE_SAFE_ROOT" in res[12] and not KNOWLEDGE.exists(), res[12][:160]),
                 ("AGENTS.md is unchanged", not agents_changed, ""),
+                ("a GitHub token read in a file is masked before the model sees it",
+                 "CIFAKECODESPACETOKEN" not in res[13] and "redacted" in res[13], res[13][:160]),
             ]
     finally:
         clean_up(bashrc, agents)

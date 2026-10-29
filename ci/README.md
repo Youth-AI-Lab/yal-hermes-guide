@@ -20,7 +20,9 @@ the configuration), then reads what Hermes answered to each call and what change
 - a file written in `assistant/plans/`, in `assistant/knowledge/`, outside, and `~/.bashrc`: only
   the first one;
 - a fake key saved with `hermes auth add` ([`drive_pty.py`](drive_pty.py) answers its two
-  questions), then `~/.hermes/auth.json` and `~/.hermes/.env` read: refused.
+  questions), then `~/.hermes/auth.json` and `~/.hermes/.env` read: refused;
+- a file with a fake GitHub token, like the one a Codespace keeps in `/workspaces/.codespaces/shared/`:
+  read, but the token is masked before the model sees it.
 
 It does not ask to write `AGENTS.md`: Hermes always asks a person first for its files of
 instructions, and in this test nobody can answer (it would wait five minutes, then refuse).
@@ -34,7 +36,7 @@ To run it by hand, in a terminal of the Codespace, in the folder of the guide:
 python3 -I ci/check_hermes.py
 ```
 
-**What you should see.** One line `PASS` per rule, then `22 PASS / 0 FAIL`.
+**What you should see.** One line `PASS` per rule, then `23 PASS / 0 FAIL`.
 
 ## When you change the guide
 
@@ -47,4 +49,5 @@ python3 -I ci/check_hermes.py
 
 A real model (six questions were asked by hand on 29 October 2026: see the README). The screens
 of `hermes` in a real terminal (they were read once, with a fake model, on 29 October 2026). A real
-Codespace (the workflow uses the same image and the same installation, on a machine of GitHub).
+Codespace in CI (the workflow uses the same image and the same installation, on a machine of GitHub;
+a real Codespace gave 22 PASS / 0 FAIL on 29 October 2026, before the token check was added).
