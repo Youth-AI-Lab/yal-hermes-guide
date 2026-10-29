@@ -522,17 +522,26 @@ until Hermes compacts it is **not tested**.
 
 ---
 
-## A model on your own computer (not tested)
+## A model on your own computer
 
 Hermes can also use a model that runs on a computer of your organisation, with Ollama (see the
 [local AI guide](https://github.com/Youth-AI-Lab/yal-local-ai-guide)): nothing then leaves the
 organisation. Hermes's documentation asks for a model that can call tools and a context of at least
-**64,000 tokens** (pieces of words, the unit models count and bill), and recommends a large model (`gemma4:31b`, 24 GB of memory or more)
-([Hermes with Ollama](https://hermes-agent.nousresearch.com/docs/guides/local-ollama-setup)). The
-models of the local AI guide were measured with a context of 8,192 tokens. Whether one of them works
-with Hermes on a usual computer: **TO BE COMPLETED**.
+**64,000 tokens** (pieces of words, the unit models count and bill), and recommends a large model
+(`gemma4:31b`, 24 GB of memory or more)
+([Hermes with Ollama](https://hermes-agent.nousresearch.com/docs/guides/local-ollama-setup)).
 
----
+**What we measured** (29 October 2026, a laptop with a 6 GB graphics card, Ollama 0.40.8, the
+configuration of this guide, the question of part 1):
+
+| Model (from the local AI guide) | What happened | Time |
+|---|---|---|
+| `qwen2.5:7b` | no answer: it called the tools the wrong way six times, and never read its documents | 83 s |
+| `mistral:7b` | a wrong answer: it called no tool, gave three levels instead of six, and named a document that does not exist | 105 s |
+
+Both models stop at 32,768 tokens of context, even when asked for 65,536, and did not fit in the
+card (19 % and 49 % of the work on the processor). **So this guide does not work with a small local
+model.** With a larger model, on a computer with much more memory: **not tested**.
 
 ## Costs
 
