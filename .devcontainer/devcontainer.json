@@ -1,0 +1,22 @@
+{
+  "name": "Youth AI Lab — an assistant with Hermes Agent",
+  // The same image as the workshop kit (Python of the MCP server in /opt/workshop/venv). Hermes is
+  // not in it: setup-hermes.sh installs it, pinned, when the Codespace is created.
+  // A pinned tag, never `latest`: each version of the guide is tested with one image.
+  "image": "ghcr.io/youth-ai-lab/yal-workshop-devcontainer:2026.10.30",
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash .devcontainer/setup-hermes.sh",
+  // VS Code opens only when Hermes is installed: the greeting never comes before it.
+  "waitFor": "postCreateCommand",
+  "remoteEnv": {
+    // The command hermes (installed in ~/.local/bin).
+    "PATH": "/home/vscode/.local/bin:${containerEnv:PATH}",
+    // Hermes may write files only in assistant/plans/: not its instructions (AGENTS.md), not its
+    // documents (knowledge/). Set here, so that every program of the Codespace has it from the
+    // start, also the one Hermes leaves running in the background.
+    "HERMES_WRITE_SAFE_ROOT": "${containerWorkspaceFolder}/assistant/plans",
+    // The greeting of each new terminal (the image's own one is for the workshops).
+    "WORKSHOP_WELCOME": "Welcome! Start the assistant of this guide with: hermes"
+  },
+  "hostRequirements": { "cpus": 2 }
+}

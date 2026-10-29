@@ -1,0 +1,42 @@
+# Opens the container of this guide as a Codespace would (it installs Hermes at the pinned version),
+# then checks each safety rule of part 6 with a fake model (ci/check_hermes.py). See ci/README.md.
+name: Guide checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 1"  # every Monday: the image, the installer and the network change without us
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Dev Containers command line
+        run: npm install -g @devcontainers/cli@0.89.0
+
+      - name: Open the container (installs Hermes)
+        timeout-minutes: 15
+        run: devcontainer up --workspace-folder . < /dev/null > up.log 2>&1 || { tail -50 up.log; exit 1; }
+
+      - name: Hermes version and configuration
+        run: |
+          devcontainer exec --workspace-folder . bash -lc 'hermes --version' | tee version.txt
+          grep -q "v0.22.5" version.txt
+          devcontainer exec --workspace-folder . bash -lc 'hermes tools list; hermes mcp list'
+
+      - name: Part 6 - each safety rule, with a fake model
+        timeout-minutes: 10
+        run: devcontainer exec --workspace-folder . bash -lc 'cd "$PWD" && python3 -I ci/check_hermes.py'
+
+      - name: Journal (when something failed)
+        if: failure()
+        run: devcontainer exec --workspace-folder . bash -lc 'tail -50 ~/.hermes/logs/errors.log' || true

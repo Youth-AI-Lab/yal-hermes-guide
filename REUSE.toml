@@ -1,0 +1,19 @@
+version = 1
+SPDX-PackageName = "yal-hermes-guide"
+SPDX-PackageSupplier = "Youth AI Lab (Erasmus+)"
+SPDX-PackageDownloadLocation = "https://github.com/Youth-AI-Lab/yal-hermes-guide"
+
+# Texts: the guide, the instructions of the assistant, its documents (summaries 30 to 32 of the
+# workshop kit): CC BY-SA 4.0.
+[[annotations]]
+path = ["README.md", "ci/README.md", "assistant/AGENTS.md", "assistant/knowledge/**", "assistant/plans/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# Configuration files, the MCP server (from the workshop kit) and the scripts: EUPL-1.2.
+[[annotations]]
+path = [".devcontainer/**", ".vscode/**", ".github/**", ".gitignore", ".gitattributes", "REUSE.toml", "hermes/**", "mcp/**", "ci/*.py"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
+SPDX-License-Identifier = "EUPL-1.2"

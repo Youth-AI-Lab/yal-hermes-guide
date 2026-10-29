@@ -1,0 +1,64 @@
+# The configuration of Hermes Agent for this guide. Copied to ~/.hermes/config.yaml when the
+# Codespace is created (.devcontainer/setup-hermes.sh), before Hermes is installed: the installer
+# keeps it. Hermes takes its own default value for everything not written here.
+# Checked with Hermes Agent v0.22.5.
+
+# The model. The key is not here: you save it with `hermes auth add anthropic --type api-key`
+# (part 1), and Hermes keeps it in ~/.hermes/auth.json, readable only by you.
+model:
+  provider: anthropic
+  default: claude-sonnet-5-5
+
+# The tools the assistant may use in the terminal (the "cli" platform). Not in this list, so never
+# sent to the model: terminal (shell commands), code_execution, browser, computer_use (mouse and
+# keyboard), delegation (sub-agents), cronjob (scheduled tasks), web, image_gen, tts, vision,
+# connections, and session_search: with it, the assistant searches all your past conversations by
+# itself, and what you typed there comes back, even what you refused to put in its memory.
+# Hermes enables all of them by default.
+platform_toolsets:
+  cli: [clarify, file, memory, skills, todo]
+
+# Commands that Hermes finds dangerous ask you first. With the terminal off, this only matters if
+# you turn it back on: by default ("smart"), another model decides for you.
+approvals:
+  mode: manual
+
+# Memory (~/.hermes/memories/MEMORY.md and USER.md): sent with every question. The assistant
+# proposes; nothing is saved until you approve it (/memory pending, part 3).
+memory:
+  write_approval: true
+
+# Skills (~/.hermes/skills/): the assistant may propose new ones. Nothing is saved until you
+# approve it (/skills pending, part 4).
+skills:
+  write_approval: true
+
+# The curator archives, after some weeks, the skills the assistant made and no longer uses: off,
+# you decide what stays.
+curator:
+  enabled: false
+
+# After a conversation, Hermes can ask the model again, in the background, what it should remember
+# or learn: off. It costs more, and in this guide you see each proposal while you talk.
+auxiliary:
+  background_review:
+    enabled: false
+
+# No "update available" message: this guide is tested with version 0.22.5 only.
+updates:
+  check: false
+
+# Usage statistics for Nous Research: off. "offer_version: 2" records this answer, so Hermes does
+# not ask the question "Help improve Hermes?" at the first start.
+telemetry:
+  shared_metrics:
+    enabled: false
+    send: false
+    offer_version: 2
+
+# The tool of the workshops: today's wildfire danger level (mcp/fire_danger_server.py).
+# "-I": the program runs on its own, without loading code from this folder or from your terminal.
+mcp_servers:
+  fire-danger:
+    command: /opt/workshop/venv/bin/python
+    args: ["-I", "@WORKSPACE@/mcp/fire_danger_server.py"]

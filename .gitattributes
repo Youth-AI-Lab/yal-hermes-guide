@@ -1,0 +1,2 @@
+# Text files with LF line endings, whatever the system of the person who clones (Windows included).
+* text=auto eol=lf

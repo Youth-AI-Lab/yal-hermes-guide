@@ -1,0 +1,49 @@
+{
+  "date": "YYYY-MM-DD",
+  "note": "Scale and source checked by the facilitator. Level and advice: filled in by hand on the day, from the source. The model cannot know this data: only the MCP tool can give it. If the source says the season is over, write it in level.",
+  "territories": {
+    "La Rochelle — Charente-Maritime, France": {
+      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "scale": "6 vigilance levels: FAIBLE (blue), LÉGER (green), MODÉRÉ (yellow), SÉVÈRE (orange), TRÈS SÉVÈRE (red), EXCEPTIONNEL (black). La Rochelle is in sector 1 (\"Secteur 1 – Îles et littoral\").",
+      "source": "Préfecture de la Charente-Maritime (DDTM), https://www.risque-prevention-incendie.fr/17",
+      "advice": [
+        "TO BE COMPLETED: one piece of advice per line, copied from the source"
+      ]
+    },
+    "Aix-en-Provence — Bouches-du-Rhône, France": {
+      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "scale": "Risk levels of the prefectoral order: faible, léger ou modéré / sévère / très sévère / extrême. Access to the massifs: allowed up to sévère; forbidden at très sévère (except ZAPEF) and at extrême.",
+      "source": "Préfet des Bouches-du-Rhône (DDTM 13), https://www.risque-prevention-incendie.fr/13",
+      "season": "The rules apply from 1 June to 30 September inclusive.",
+      "advice": [
+        "TO BE COMPLETED: one piece of advice per line, copied from the source"
+      ]
+    },
+    "Barcelona — Catalonia, Spain": {
+      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "scale": "Pla Alfa, 5 levels per municipality: 0 perill baix, 1 perill moderat, 2 perill alt, 3 perill molt alt, 4 perill extrem.",
+      "source": "Generalitat de Catalunya, Direcció General dels Agents Rurals, https://interior.gencat.cat/ca/arees_dactuacio/agents-rurals/pla-alfa/index.html",
+      "season": "In operation all year.",
+      "advice": [
+        "TO BE COMPLETED: one piece of advice per line, copied from the source"
+      ]
+    },
+    "Antwerp — Flanders, Belgium": {
+      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "scale": "4 colour codes per province: groen (weinig gevaar), geel (gevaar), oranje (hoog gevaar), rood (acuut hoog gevaar).",
+      "source": "Agentschap voor Natuur en Bos (ANB), https://natuurenbos.be/waarschuwingen (province Antwerpen)",
+      "season": "1 March to 30 September.",
+      "advice": [
+        "TO BE COMPLETED: one piece of advice per line, copied from the source"
+      ]
+    },
+    "Naples — Campania, Italy": {
+      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "scale": "TO BE COMPLETED: no public daily page confirmed. Fallback: EFFIS, FWI classes Low, Moderate, High, Very High, Extreme, Very Extreme.",
+      "source": "TO BE COMPLETED. Fallback: European Commission, JRC (EFFIS), https://forest-fire.emergency.copernicus.eu/apps/effis_current_situation/",
+      "advice": [
+        "TO BE COMPLETED: one piece of advice per line, copied from the source"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+# Your key is saved with `hermes auth add` in ~/.hermes/auth.json, in your home folder, never in
+# this folder. Nothing secret is written here.
+__pycache__/
+# Files that usually hold a secret: never in this repository.
+.env
+.env.*
+*.env
+*.key
+# Hermes keeps its data in your home folder (~/.hermes), never here; in case one is copied here:
+*.db
+*.log
+hermes-backup-*.zip

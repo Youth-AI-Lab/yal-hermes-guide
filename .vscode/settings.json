@@ -1,0 +1,8 @@
+{
+  // Each new terminal opens in the folder of the assistant: Hermes reads its AGENTS.md there.
+  "terminal.integrated.cwd": "${workspaceFolder}/assistant",
+  // No chat panel on the right and no Copilot features: the assistant of this guide is Hermes, in
+  // the terminal, and the chat of VS Code would be confusing.
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "chat.disableAIFeatures": true
+}
