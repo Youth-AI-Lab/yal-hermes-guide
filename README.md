@@ -191,8 +191,12 @@ shows its label, never the key.
 hermes
 ```
 
-**What you should see.** A box **"Hermes Agent v0.22.5"** with the list of the tools and skills, then
-**"Welcome to Hermes Agent! Type your message or /help for commands."** and a line where you type.
+**What you should see.** A box **"Hermes Agent v0.22.5"** with the list of the tools and skills (its
+last line counts them: **"12 tools · 54 skills"**), then **"Welcome to Hermes Agent! Type your message
+or /help for commands."** and a line where you type.
+
+![The first screen of Hermes. 1: the box Hermes Agent v0.22.5, with the tools, the MCP server fire-danger and the skills. 2: the number of skills, 54 skills. 3: the line where you type, Ask anything, or type / for commands.](images/hermes-welcome.png)
+
 Ask:
 
 ```text
@@ -202,7 +206,8 @@ What fire danger vigilance levels exist in Charente-Maritime? Name your source.
 **What you should see.** The assistant reads `knowledge/index.md`, then the document it needs, and
 answers with the six levels (FAIBLE to EXCEPTIONNEL), the territory, the order that sets them, and
 **"Source: knowledge/30-charente-maritime-vigilance-levels.md"** (what Claude Sonnet 5.5 answered on
-29 October 2026; the words change from one answer to the next). To leave, type `/exit`.
+29 October 2026; the words change from one answer to the next). Before the very first answer, Hermes
+downloads a package it needs: this happens only once. To leave, type `/exit`.
 
 > [!TIP]
 > In the terminal, paste with `Ctrl+Shift+V` (`Cmd+V` on a Mac). The first time, the browser may
@@ -231,7 +236,7 @@ model that records what it receives:
 
 | What | Size (characters) | Who wrote it |
 |---|---|---|
-| Hermes's own instructions, with `assistant/AGENTS.md` (under the title "Project Context") and the **list of its skills** (51 lines, 5,200 characters) | about 16,400 | Nous Research, and you for `AGENTS.md` |
+| Hermes's own instructions, with `assistant/AGENTS.md` (under the title "Project Context") and the **list of its skills** (51 lines, 5,200 characters; the "54 skills" of the welcome box is another count) | about 16,400 | Nous Research, and you for `AGENTS.md` |
 | The memory: `USER PROFILE` and `MEMORY` blocks | up to 1,375 and 2,200 | **the assistant**, after your approval |
 | The description of the 12 tools it may use | about 18,600 | Nous Research |
 | A one-line entry for each tool of the MCP server | a few lines | the author of the server |
@@ -273,7 +278,9 @@ Hermes has two memories, two short text files sent with every question:
 
 ### See and approve what it proposes
 
-When the assistant wants to remember something, it says it has staged it. Type:
+When the assistant wants to remember something, Hermes shows **`🧠 Memory +user: "…"`** with the
+text, then **"updated 1 memory"** under the answer. The memory is **not saved yet**: it waits for
+your approval. Type:
 
 ```text
 /memory pending

@@ -4,9 +4,10 @@ SPDX-PackageSupplier = "Youth AI Lab (Erasmus+)"
 SPDX-PackageDownloadLocation = "https://github.com/Youth-AI-Lab/yal-hermes-guide"
 
 # Texts: the guide, the instructions of the assistant, its documents (summaries 30 to 32 of the
-# workshop kit): CC BY-SA 4.0.
+# workshop kit), and the screenshots: CC BY-SA 4.0. The screenshots show the interface of
+# Hermes Agent (https://github.com/NousResearch/hermes-agent), which belongs to its authors.
 [[annotations]]
-path = ["README.md", "ci/README.md", "assistant/AGENTS.md", "assistant/knowledge/**", "assistant/plans/**"]
+path = ["README.md", "ci/README.md", "assistant/AGENTS.md", "assistant/knowledge/**", "assistant/plans/**", "images/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
