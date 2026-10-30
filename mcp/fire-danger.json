@@ -40,7 +40,7 @@
     "Naples — Campania, Italy": {
       "level": "TO BE COMPLETED: today's level, copied from the source",
       "scale": "TO BE COMPLETED: no public daily page confirmed. Fallback: EFFIS, FWI classes Low, Moderate, High, Very High, Extreme, Very Extreme.",
-      "source": "TO BE COMPLETED. Fallback: European Commission, JRC (EFFIS), https://forest-fire.emergency.copernicus.eu/apps/effis_current_situation/",
+      "source": "TO BE COMPLETED. Fallback: European Commission, JRC (EFFIS), https://forest-fire.emergency.copernicus.eu/apps/effis.csv/",
       "advice": [
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
