@@ -227,6 +227,8 @@ A Codespace stops after 30 minutes without use. Stop it yourself after use: on
 that stayed stopped for 30 days, and with it your memory, your conversations, your key and your own
 skills. GitHub Free gives 120 core-hours a month: 60 hours on the 2-core machine of this guide.
 
+![The page github.com/codespaces. 1: the name of your Codespace: click it to open it again. 2: its … menu. 3: Stop codespace. 4: Delete, which deletes everything in it.](images/codespaces-menu.png)
+
 ---
 
 ## Part 2 - What enters the context
