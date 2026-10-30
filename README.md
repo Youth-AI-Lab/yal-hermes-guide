@@ -69,7 +69,11 @@ was not tested, the guide says so.
 work: this guide is for you.
 
 **You took part in a Youth AI Lab workshop**: you will meet the same pieces (instructions in
-`AGENTS.md`, skills, an MCP tool), and one more: a memory that the agent writes itself.
+`AGENTS.md`, skills, an MCP tool), and one more: a memory that the agent writes itself. No workshop
+is needed first, but it is easiest after workshop 4 of
+[the series](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): instructions come in
+workshop 1, skills in workshop 3, the MCP tool in workshop 4. It is for you, the facilitator: never
+for use with young people.
 
 **You want a chatbot that young people use**: this guide is not the right tool. Use the
 [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide).
@@ -572,8 +576,11 @@ from Anthropic's prices:
 | A one-hour session plan, written in `plans/` (part 4) | 6 | 0.089 dollars |
 
 Six questions cost 0.21 dollars in all. Most of what is sent is the same at each call, and
-Anthropic charges it less when it is repeated (its prompt cache). Set a spending limit on your key
-in the Anthropic console.
+Anthropic charges it less when it is repeated (its prompt cache). In the Anthropic console, the
+spending limit is set on the **workspace** of your key, not on the key itself (**Spending** →
+**Spend limits**, as in the
+[OpenCode guide, way 1](https://github.com/Youth-AI-Lab/yal-opencode-guide#way-1---an-anthropic-api-key)):
+create your key in a workspace with a limit, since the workspace **Default** cannot have one.
 
 ## Limits to know
 
@@ -664,13 +671,22 @@ the terminal, in the folder of the guide: `bash .devcontainer/setup-hermes.sh` (
   [security](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/SECURITY.md)
 - The Youth AI Lab [workshop kit](https://github.com/Youth-AI-Lab/yal-workshop-kit), and the
   [OpenCode](https://github.com/Youth-AI-Lab/yal-opencode-guide),
-  [Open WebUI](https://github.com/Youth-AI-Lab/yal-openwebui-guide) and
-  [local AI](https://github.com/Youth-AI-Lab/yal-local-ai-guide) guides
+  [Open WebUI](https://github.com/Youth-AI-Lab/yal-openwebui-guide),
+  [local AI](https://github.com/Youth-AI-Lab/yal-local-ai-guide) and
+  [dev containers](https://github.com/Youth-AI-Lab/yal-devcontainer-guide) guides
+- **No Codespace?** The [dev containers guide](https://github.com/Youth-AI-Lab/yal-devcontainer-guide)
+  opens this repository on your own computer, with the same image as a Codespace. The test of
+  part 6 ([`ci/check_hermes.py`](ci/check_hermes.py)) runs in such a container at each change, on
+  Linux; on macOS and Windows: **not tested**.
 
 ## About
 
 Written for the Youth AI Lab project (Erasmus+), October 2026, for Hermes Agent v0.22.5 (commit
-`bf0203a`) and the image `2026.10.31` of the workshops (`2026.10.30` for the measures of 29 October). Checked on 29 October 2026 in a container
+`bf0203a`). **Image tested**: `2026.10.31` of the workshops (`2026.10.30` for the measures of
+29 October). **Image used**: the one pinned in
+[`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) (`2026.10.36` on 30 October
+2026), which the workflow of [`ci/README.md`](ci/README.md) opens at each change; the measures and
+the questions to the real model were not repeated with it. Checked on 29 October 2026 in a container
 made from this repository: the installation, the configuration, the measures of part 2, the
 screens of parts 1, 3 and 4 (with a fake key and a fake model), each line of the table of part 6, by
 [`ci/check_hermes.py`](ci/check_hermes.py), which runs at each change
