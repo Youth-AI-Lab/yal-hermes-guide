@@ -422,13 +422,16 @@ the tool gave no level for today, does not guess one, and gives the official sou
 1. Open the official source given in the file for your territory (for La Rochelle,
    <https://www.risque-prevention-incendie.fr/17>) and read today's level.
 2. In the terminal (not in Hermes), open the file: `code /workspaces/yal-hermes-guide/mcp/fire-danger.json`.
-3. For your territory, write today's date in `"date"` (year-month-day), and the level and the advice
-   of the source, copied as they are. Keep the quotes and the commas. Save.
+3. Write today's date in `"date"` (year-month-day). For your territory, write `"status"`: `"live"` if
+   the source shows a level for today (then copy the level in `"level"` and the advice in
+   `"advice"`), `"season-over"` or `"no-level-shown"` if not; and in `"source_says"`, the sentence of
+   the source about today. Copy everything as it is. Keep the quotes and the commas. Save.
 4. Ask the question again (in a new conversation).
 
 > [!IMPORTANT]
 > Never make up a level: copy it from the official source, and keep its address in the file. The
-> assistant gives it as today's level.
+> assistant gives it as today's level. The tool gives a level only when the status is `"live"` and
+> the date is today's: otherwise it says that there is no level today, and why.
 
 The [OpenCode guide, part 6](https://github.com/Youth-AI-Lab/yal-opencode-guide#fill-in-todays-level)
 explains the file in more detail.

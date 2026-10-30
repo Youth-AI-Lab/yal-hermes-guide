@@ -1,9 +1,11 @@
 {
   "date": "YYYY-MM-DD",
-  "note": "Scale and source checked by the facilitator. Level and advice: filled in by hand on the day, from the source. The model cannot know this data: only the MCP tool can give it. If the source says the season is over, write it in level.",
+  "note": "Scale and source checked by the facilitator. Status, level, source_says and advice: filled in by hand on the day, from the source, with date set to that day (YYYY-MM-DD). The model cannot know this data: only the MCP tool can give it. status is one of: live (the source shows a level today: copy it in level), season-over (the source says the season is over), no-level-shown (the source shows no level today). source_says: the source's own sentence, copied. The tool gives a level only when status is live and date is today.",
   "territories": {
     "La Rochelle — Charente-Maritime, France": {
-      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "status": "TO BE COMPLETED: live, season-over or no-level-shown",
+      "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
+      "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
       "scale": "6 vigilance levels: FAIBLE (blue), LÉGER (green), MODÉRÉ (yellow), SÉVÈRE (orange), TRÈS SÉVÈRE (red), EXCEPTIONNEL (black). La Rochelle is in sector 1 (\"Secteur 1 – Îles et littoral\").",
       "source": "Préfecture de la Charente-Maritime (DDTM), https://www.risque-prevention-incendie.fr/17",
       "advice": [
@@ -11,7 +13,9 @@
       ]
     },
     "Aix-en-Provence — Bouches-du-Rhône, France": {
-      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "status": "TO BE COMPLETED: live, season-over or no-level-shown",
+      "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
+      "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
       "scale": "Risk levels of the prefectoral order: faible, léger ou modéré / sévère / très sévère / extrême. Access to the massifs: allowed up to sévère; forbidden at très sévère (except ZAPEF) and at extrême.",
       "source": "Préfet des Bouches-du-Rhône (DDTM 13), https://www.risque-prevention-incendie.fr/13",
       "season": "The rules apply from 1 June to 30 September inclusive.",
@@ -20,7 +24,9 @@
       ]
     },
     "Barcelona — Catalonia, Spain": {
-      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "status": "TO BE COMPLETED: live, season-over or no-level-shown",
+      "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
+      "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
       "scale": "Pla Alfa, 5 levels per municipality: 0 perill baix, 1 perill moderat, 2 perill alt, 3 perill molt alt, 4 perill extrem.",
       "source": "Generalitat de Catalunya, Direcció General dels Agents Rurals, https://interior.gencat.cat/ca/arees_dactuacio/agents-rurals/pla-alfa/index.html",
       "season": "In operation all year.",
@@ -29,7 +35,9 @@
       ]
     },
     "Antwerp — Flanders, Belgium": {
-      "level": "TO BE COMPLETED: today's level, copied from the source",
+      "status": "TO BE COMPLETED: live, season-over or no-level-shown",
+      "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
+      "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
       "scale": "4 colour codes per province: groen (weinig gevaar), geel (gevaar), oranje (hoog gevaar), rood (acuut hoog gevaar).",
       "source": "Agentschap voor Natuur en Bos (ANB), https://natuurenbos.be/waarschuwingen (province Antwerpen)",
       "season": "1 March to 30 September.",
@@ -38,9 +46,11 @@
       ]
     },
     "Naples — Campania, Italy": {
-      "level": "TO BE COMPLETED: today's level, copied from the source",
-      "scale": "TO BE COMPLETED: no public daily page confirmed. Fallback: EFFIS, FWI classes Low, Moderate, High, Very High, Extreme, Very Extreme.",
-      "source": "TO BE COMPLETED. Fallback: European Commission, JRC (EFFIS), https://forest-fire.emergency.copernicus.eu/apps/effis.csv/",
+      "status": "TO BE COMPLETED: live, season-over or no-level-shown",
+      "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
+      "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
+      "scale": "TO BE COMPLETED: no public daily page found for Campania. Ask your facilitator.",
+      "source": "TO BE COMPLETED: no public daily page found for Campania. Ask your facilitator.",
       "advice": [
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
