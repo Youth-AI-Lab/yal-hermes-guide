@@ -1,6 +1,6 @@
 # An assistant that remembers, with Hermes Agent
 
-## Youth AI Lab — Erasmus+ project
+## Youth AI Lab - Erasmus+ project
 
 - **Partners:** L.A.B. (Aix-en-Provence), UAB (Barcelona), Perlatecnica (Naples), Digitale Wolven
   (Antwerp), CSC Vent des Îles (La Rochelle)
@@ -142,7 +142,7 @@ rules that protect a group.
 | Your key | `~/.hermes/auth.json`, readable only by you | the same |
 | Proposals waiting for your approval, in full | `~/.hermes/pending/` | the same |
 | After an error with the model (wrong key, no credit...): the whole question, with the instructions and the memory | `~/.hermes/sessions/request_dump_*.json` (read in Hermes's code, **not tested**) | the same |
-| Usage statistics for Nous Research | **not sent**: at the first start, Hermes asks whether to share them; the configuration of this guide answers **"No thanks"** for you (`hermes/config.yaml`, section `telemetry`) | — |
+| Usage statistics for Nous Research | **not sent**: at the first start, Hermes asks whether to share them; the configuration of this guide answers **"No thanks"** for you (`hermes/config.yaml`, section `telemetry`) | - |
 
 The "No thanks" covers only these statistics: your questions still go to Anthropic. Hermes's own
 pages disagree on this point: its [FAQ](https://hermes-agent.nousresearch.com/docs/reference/faq)

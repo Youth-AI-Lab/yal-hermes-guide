@@ -2,7 +2,7 @@
   "date": "YYYY-MM-DD",
   "note": "Scale and source checked by the facilitator. Status, level, source_says and advice: filled in by hand on the day, from the source, with date set to that day (YYYY-MM-DD). The model cannot know this data: only the MCP tool can give it. status is one of: live (the source shows a level today: copy it in level), season-over (the source says the season is over), no-level-shown (the source shows no level today). source_says: the source's own sentence, copied. The tool gives a level only when status is live and date is today.",
   "territories": {
-    "La Rochelle — Charente-Maritime, France": {
+    "La Rochelle - Charente-Maritime, France": {
       "status": "TO BE COMPLETED: live, season-over or no-level-shown",
       "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
       "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
@@ -12,7 +12,7 @@
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
     },
-    "Aix-en-Provence — Bouches-du-Rhône, France": {
+    "Aix-en-Provence - Bouches-du-Rhône, France": {
       "status": "TO BE COMPLETED: live, season-over or no-level-shown",
       "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
       "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
@@ -23,7 +23,7 @@
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
     },
-    "Barcelona — Catalonia, Spain": {
+    "Barcelona - Catalonia, Spain": {
       "status": "TO BE COMPLETED: live, season-over or no-level-shown",
       "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
       "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
@@ -34,7 +34,7 @@
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
     },
-    "Antwerp — Flanders, Belgium": {
+    "Antwerp - Flanders, Belgium": {
       "status": "TO BE COMPLETED: live, season-over or no-level-shown",
       "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
       "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
@@ -45,7 +45,7 @@
         "TO BE COMPLETED: one piece of advice per line, copied from the source"
       ]
     },
-    "Naples — Campania, Italy": {
+    "Naples - Campania, Italy": {
       "status": "TO BE COMPLETED: live, season-over or no-level-shown",
       "level": "TO BE COMPLETED: today's level, copied from the source (only if status is live)",
       "source_says": "TO BE COMPLETED: the source's own sentence about today, copied (for example the season sentence)",
