@@ -3,7 +3,7 @@
   // The same image as the workshop kit (Python of the MCP server in /opt/workshop/venv). Hermes is
   // not in it: setup-hermes.sh installs it, pinned, when the Codespace is created.
   // A pinned tag, never `latest`: each version of the guide is tested with one image.
-  "image": "ghcr.io/youth-ai-lab/yal-workshop-devcontainer:2026.10.37",
+  "image": "ghcr.io/youth-ai-lab/yal-workshop-devcontainer:2026.10.38",
   "remoteUser": "vscode",
   "postCreateCommand": "bash .devcontainer/setup-hermes.sh",
   // VS Code opens only when Hermes is installed: the greeting never comes before it.
