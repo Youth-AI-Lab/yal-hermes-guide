@@ -156,8 +156,9 @@ says that it collects no telemetry, its developer documentation describes this o
 
 1. Open <https://codespaces.new/Youth-AI-Lab/yal-hermes-guide> and sign in to GitHub.
 2. Click **Create codespace**.
-3. Wait. The first time, the Codespace installs Hermes: about two minutes (99 and 124 s measured on
-   our computer with the same image; **not yet measured in a Codespace**).
+3. Wait. The first time, the Codespace installs Hermes: about four minutes in all, measured once in
+   a real Codespace, with its creation (the installation took 99 and 124 s on our computer with
+   the same image).
 
 **What you should see.** VS Code in your browser, with the files of the guide on the left, and a
 terminal at the bottom that says **"Welcome! Start the assistant of this guide with: hermes"**. The
@@ -691,8 +692,9 @@ made from this repository: the installation, the configuration, the measures of 
 screens of parts 1, 3 and 4 (with a fake key and a fake model), each line of the table of part 6, by
 [`ci/check_hermes.py`](ci/check_hermes.py), which runs at each change
 ([`ci/README.md`](ci/README.md)), and six questions to Claude Sonnet 5.5 with a real key (answers,
-tools used, costs). Not tested: a real Codespace, a skill proposed by the assistant itself, a long
-conversation.
+tools used, costs). In a real Codespace (image `2026.10.30`), we ran the installation and
+`ci/check_hermes.py` only (22 PASS, 0 FAIL, before the token check was added), not the whole guide.
+Not tested: a skill proposed by the assistant itself, a long conversation.
 
 The documents of `assistant/knowledge/` are summaries 30 to 32 of the workshop kit, and the MCP
 server comes from the kit.

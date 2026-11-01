@@ -40,7 +40,7 @@ python3 -I ci/check_hermes.py
 
 ## When you change the guide
 
-- **A new version of Hermes**: change both lines of `setup-hermes.sh`, then run the workflow. The
+- **A new version of Hermes**: change the commit and the tag named in `setup-hermes.sh`, then run the workflow. The
   names of the tools, the messages that the test reads, and the screens of the README may change.
 - **The configuration** (`hermes/config.yaml`): run the workflow; change `EXPECTED_TOOLS` in
   `check_hermes.py` if you change the list of tools on purpose.
