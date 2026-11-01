@@ -546,7 +546,7 @@ until Hermes compacts it is **not tested**.
 Hermes can also use a model that runs on a computer of your organisation, with Ollama (see the
 [local AI guide](https://github.com/Youth-AI-Lab/yal-local-ai-guide)): nothing then leaves the
 organisation. Hermes's documentation asks for a model that can call tools and a context of at least
-**64,000 tokens** (pieces of words, the unit models count and bill), and recommends a large model
+**64,000 tokens** ([pieces of words](https://github.com/Youth-AI-Lab/yal-local-ai-guide/blob/main/how-an-llm-works.md#what-a-token-really-is), the unit models count and bill), and recommends a large model
 (`gemma4:31b`, 24 GB of memory or more)
 ([Hermes with Ollama](https://hermes-agent.nousresearch.com/docs/guides/local-ollama-setup)).
 
