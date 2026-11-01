@@ -5,6 +5,8 @@
 
 # The model. The key is not here: you save it with `hermes auth add anthropic --type api-key`
 # (part 1), and Hermes keeps it in ~/.hermes/auth.json, readable only by you.
+# With an OpenRouter key (not tested): change these lines in ~/.hermes/config.yaml, not here, as the
+# guide explains in "Or an OpenRouter key".
 model:
   provider: anthropic
   default: claude-sonnet-5-5

@@ -82,8 +82,8 @@ for use with young people.
 
 You need a **GitHub account**, an **Anthropic API key** (see the
 [OpenCode guide, way 1](https://github.com/Youth-AI-Lab/yal-opencode-guide#way-1---an-anthropic-api-key)
-to get one), and about **one hour**. No technical knowledge is expected: every command to type is
-given.
+to get one) or an [OpenRouter key](#or-an-openrouter-key-not-tested), and about **one hour**. No
+technical knowledge is expected: every command to type is given.
 
 **For your work, use a key of your organisation**, created with its approval, not your personal
 card: what Anthropic does with the data, and the contract it needs, are in the
@@ -118,7 +118,7 @@ this stricter than for a chatbot:
   the model, and kept in your Codespace ([part 7](#part-7---keep-and-delete)).
 - **Never put a document about young people in the Codespace**: no participant list, form,
   evaluation, photo or message. The assistant can open any file of the Codespace, and what it opens
-  is sent to Anthropic ([part 6](#what-the-rules-cannot-stop)).
+  is sent to the provider of your key ([part 6](#what-the-rules-cannot-stop)).
 - **No messaging app.** Hermes can answer on Telegram, WhatsApp, Discord, Signal, e-mail and other
   messaging apps. This guide does not set them up, and you should not: anyone allowed to write to
   the agent there can make it use its tools, and young people could reach it.
@@ -135,7 +135,7 @@ rules that protect a group.
 
 | What | Where | Who can see it |
 |---|---|---|
-| Each question, with the instructions, the memory and the documents it reads | sent to Anthropic, with your key | Anthropic, under its [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) (see the [OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes)) |
+| Each question, with the instructions, the memory and the documents it reads | sent to Anthropic, with your key | Anthropic, under its [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) (see the [OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes)). With an OpenRouter key: OpenRouter and the company that serves the model (see the [OpenRouter guide](https://github.com/Youth-AI-Lab/yal-openrouter-guide#part-8---data-and-young-people)) |
 | Your conversations, in full | `~/.hermes/state.db`, in your Codespace | you, and GitHub, which runs the Codespace |
 | The text of your questions | also in the logs `~/.hermes/logs/agent.log` and `gateway.log` | the same |
 | The memory | `~/.hermes/memories/USER.md` and `MEMORY.md` | the same |
@@ -144,7 +144,8 @@ rules that protect a group.
 | After an error with the model (wrong key, no credit...): the whole question, with the instructions and the memory | `~/.hermes/sessions/request_dump_*.json` (read in Hermes's code, **not tested**) | the same |
 | Usage statistics for Nous Research | **not sent**: at the first start, Hermes asks whether to share them; the configuration of this guide answers **"No thanks"** for you (`hermes/config.yaml`, section `telemetry`) | - |
 
-The "No thanks" covers only these statistics: your questions still go to Anthropic. Hermes's own
+The "No thanks" covers only these statistics: your questions still go to the provider of your key.
+Hermes's own
 pages disagree on this point: its [FAQ](https://hermes-agent.nousresearch.com/docs/reference/faq)
 says that it collects no telemetry, its developer documentation describes this optional sharing.
 
@@ -189,6 +190,49 @@ hermes auth add anthropic --type api-key
 **What you should see.** **`Added anthropic credential #1: "api-key-1"`**. Hermes keeps the key in
 `~/.hermes/auth.json`, outside the folder of the guide, readable only by you. `hermes auth list`
 shows its label, never the key.
+
+### Or an OpenRouter key (not tested)
+
+**Nothing in this section was tested.** It follows Hermes's documentation for v0.22.5. The questions
+and the costs of this guide were measured with an Anthropic key and Claude Sonnet 5.5: they say
+nothing about another model. The rule stays the same: never with young people.
+
+Create the key as in
+[way 3 of the OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide#way-3---an-openrouter-key),
+with a **Credit limit**. Instead of step 2:
+
+1. Save the key, and answer the two questions of step 2:
+
+   ```bash
+   hermes auth add openrouter --type api-key
+   ```
+
+   Hermes should say `Added openrouter credential #1: "api-key-1"`.
+2. Type `code ~/.hermes/config.yaml`. This is the copy Hermes reads: the file `hermes/config.yaml` of
+   the guide is copied only when the Codespace is created. Change the two lines under `model:`, and
+   add the section `provider_routing`, which asks for companies that do not collect user data:
+
+   ```yaml
+   model:
+     provider: openrouter
+     default: deepseek/deepseek-v4-flash
+
+   provider_routing:
+     data_collection: deny
+   ```
+
+   `deepseek/deepseek-v4-flash` is the model of the workshops with this key, measured with OpenCode.
+   `data_collection: deny` is not zero data retention: on 1 November 2026, with OpenCode,
+   `google/gemini-2.5-flash-lite` answered with this rule on, and the one company that serves it is
+   listed with 55 days of retention.
+3. In your [privacy settings](https://openrouter.ai/settings/privacy), refuse the providers that may
+   train on your data, for paid and for free models. `provider_routing` does not cover the side tasks
+   of Hermes, such as the title of a conversation or the summary of a long one
+   ([its documentation](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/configuration.md#openrouter-routing--pareto-code-for-auxiliary-tasks)).
+   If the main model fails, its code can also send them to a free model.
+
+Then start the assistant as in step 3. For the data and the terms, read the
+[OpenRouter guide](https://github.com/Youth-AI-Lab/yal-openrouter-guide#part-8---data-and-young-people).
 
 ### Step 3 - Start the assistant and ask a question
 
@@ -483,7 +527,8 @@ mode (read in Hermes's code; the test does not try it, because nobody can answer
   with a fake token of the same kind, Hermes replaced it with `«redacted:ghu_…»` before sending the
   file to the model (the test of part 6 checks this at each change). Create your Codespace from this
   guide's repository only, as in part 1.
-- **The model sees everything you type and everything it reads**, and so does Anthropic.
+- **The model sees everything you type and everything it reads**, and so does the provider of your
+  key.
 - **A document can trick it.** A text in a document may ask the agent to remember something, to
   write a skill, or to write a plan that says something else. Memories and skills are only proposed:
   read each proposal before you approve it. Read the plans before you use them.
@@ -519,7 +564,7 @@ part). To delete pieces:
 | delete the logs, which keep the text of your questions | `rm -f ~/.hermes/logs/*.log*` |
 | delete all the memory | `hermes memory reset` ([part 3](#read-change-or-delete-the-memory)) |
 | reject the proposals still waiting | `/memory reject all` and `/skills reject all`, in Hermes |
-| remove your key from the Codespace | `hermes auth remove anthropic api-key-1` |
+| remove your key from the Codespace | `hermes auth remove anthropic api-key-1` (OpenRouter: `hermes auth remove openrouter api-key-1`) |
 
 Deleting a conversation removes it from the list; whether the file `state.db` still holds its text
 until Hermes compacts it is **not tested**.
@@ -531,11 +576,12 @@ until Hermes compacts it is **not tested**.
 ### At the end, or if you typed something real by mistake
 
 1. **Stop** using the assistant.
-2. **Revoke the key** in the Anthropic console: a key removed from the Codespace still works
+2. **Revoke the key** in the console of its provider: a key removed from the Codespace still works
    elsewhere.
 3. **Delete the Codespace** on <https://github.com/codespaces> (**…** → **Delete**): this deletes
    its conversations, logs, memory and skills. It does not delete what you downloaded (an export,
-   a backup) or what was already sent to Anthropic, which keeps it under its own terms.
+   a backup) or what was already sent to the provider of your key, which keeps it under its own
+   terms.
 4. **If it was about a real young person**: write down what you typed and when, and tell whoever
    handles data protection in your organisation.
 
@@ -583,6 +629,9 @@ spending limit is set on the **workspace** of your key, not on the key itself (*
 [OpenCode guide, way 1](https://github.com/Youth-AI-Lab/yal-opencode-guide#way-1---an-anthropic-api-key)):
 create your key in a workspace with a limit, since the workspace **Default** cannot have one.
 
+With an OpenRouter key, the figures above do not apply: TO BE COMPLETED (not measured). The
+**Credit limit** of the key is your spending limit.
+
 ## Limits to know
 
 - **A real model was tried with six questions only** (Claude Sonnet 5.5, 29 October 2026). Not
@@ -590,8 +639,8 @@ create your key in a workspace with a limit, since the workspace **Default** can
 - **Hermes changes fast.** The guide is pinned to 0.22.5; its documentation online describes the
   latest version.
 - **No group, no young people, no messaging app** ([why](#this-guide-is-for-you-not-for-young-people)).
-- **OpenRouter and other providers**: Hermes accepts them (`hermes auth add openrouter`), not tested
-  here.
+- **OpenRouter** ([section](#or-an-openrouter-key-not-tested)) **and other providers**: Hermes
+  accepts them, not tested here.
 
 ## Commands
 
@@ -599,6 +648,7 @@ create your key in a workspace with a limit, since the workspace **Default** can
 |---|---|
 | `hermes` | starts the assistant |
 | `hermes auth add anthropic --type api-key` | saves your key |
+| `hermes auth add openrouter --type api-key` | saves an OpenRouter key (not tested) |
 | `hermes auth list` | shows the saved keys (labels only) |
 | `/memory pending`, `/memory approve <id>`, `/memory reject <id>` | in Hermes: the memory proposals |
 | `/skills pending`, `/skills diff <id>`, `/skills approve <id>`, `/skills reject <id>` | in Hermes: the skill proposals |
@@ -639,7 +689,9 @@ already chosen) and press Enter, then tell us in an
 ### The key is refused
 
 Check the key, its credit and its workspace in the Anthropic console. Then type
-`hermes auth remove anthropic api-key-1` and do [part 1, step 2](#step-2---save-your-key) again. The
+`hermes auth remove anthropic api-key-1` and do [part 1, step 2](#step-2---save-your-key) again
+(OpenRouter: check the key and its credit on <https://openrouter.ai>, then type
+`hermes auth remove openrouter api-key-1` and save it again). The
 message Hermes shows: **TO BE COMPLETED** (not tested with a refused key).
 
 ### The assistant does not know its documents or its instructions
