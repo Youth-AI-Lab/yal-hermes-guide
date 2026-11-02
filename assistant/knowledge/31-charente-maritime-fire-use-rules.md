@@ -19,7 +19,7 @@ review_note: "Human check of 2026-10-20 no longer covers this text: changed on 2
 Burning waste outdoors or in individual incinerators is forbidden all year in all of Charente-Maritime.
 This includes green waste from private people, professionals and local authorities.
 Private people cannot get an exemption to burn green waste.
-Limited exemptions exist, never at level SÉVÈRE (orange) or above (articles 9 and 10): for professionals, for owners burning forest waste from land that machines cannot reach, and for professional farmers.
+Limited exemptions exist (article 10), never at level SÉVÈRE (orange) or above: for professionals fighting invasive plants, plant diseases, parasitised wood, processionary caterpillars or termites, outside the forest areas; for professionals or owners burning forest waste from land that machines cannot reach; and for professional farmers burning plant waste from farm work, outside the forest areas.
 The order defines two kinds of forest areas.
 Risk areas (article 2.5) are wooded massifs of more than 1 hectare in the 72 communes listed in annex 1 of the order.
 Other areas (article 2.6) are wooded massifs of at least 0.5 hectare anywhere in the département.
@@ -31,16 +31,17 @@ These bans also apply to people using the public roads that cross these areas.
 Releasing sky lanterns is strictly forbidden in the whole département, at every vigilance level.
 Festive fires (campfires, evening fires, Saint John's fires, bonfires) are forbidden in the risk areas (2.5).
 In the other areas (2.6), they are forbidden from level SÉVÈRE (orange).
-A festive fire must be authorised by the owner of the land and must meet the conditions of articles 11 and 12 of the order.
-The request goes to the mayor, who gives a written authorisation (article 11.1).
+A festive fire must be authorised by the owner of the land, or by the people who hold the owner's rights, and must meet the conditions of articles 11 and 12 of the order.
+The request goes to the mayor at least 5 working days before the date, and can only be allowed as an exception, outside levels SÉVÈRE, TRÈS SÉVÈRE and EXCEPTIONNEL; the mayor gives a written authorisation (article 11.1).
 This authorisation is suspended at level SÉVÈRE (orange) or above and during an air pollution episode (article 11.1).
+Festive fires organised by public authorities, under their responsibility, do not go through this request to the mayor: they must meet the conditions of articles 11.2 and 12, so they cannot be lit at level SÉVÈRE (orange) or above or during an air pollution episode (article 5.1).
 Article 2.1 of the order says that electric and gas barbecues, planchas and electric stoves are not covered by the order.
 Yet article 5.2 sets rules for cooking in the forest areas defined by the order, including with gas.
 From level SÉVÈRE (orange), mobile stoves and mobile planchas running on gas, petrol/alcohol or wood are forbidden there.
 Cooking fires on the ground (méchouis, éclades) are forbidden there.
 Barbecues and stoves (charcoal, wood, gas, petrol/alcohol) are allowed there only on a non-combustible area.
-Each fire must be surrounded by a 3-metre non-combustible zone (bare soil, concrete or gravel), with spark arresters.
-A water point with a hose and a 6-litre spray extinguisher must be close by.
+Each fire must be surrounded by a non-combustible zone with a 3-metre radius (bare soil, concrete or gravel), with spark arresters.
+A water point with a hose that can reach the fire and a 6-litre spray extinguisher must be right next to it.
 Users must watch the fire constantly and have a way to raise the alarm (mobile phone).
 No tree may hang over the fire and no branch may be within 3 metres of it.
 Brush clearing must meet the legal obligation in the risk areas (2.5) and cover 20 metres around the fire in the other areas (2.6).
@@ -57,3 +58,5 @@ From level TRÈS SÉVÈRE (red), it is forbidden, with no time window.
 An amending order of 24 June 2026 changed the rules for farm work: see 32-charente-maritime-farm-work-amendment.md.
 Breaking the order is punished by a 1st-class fine.
 The forestry code also provides a 4th-class fine for some offences.
+Burning green waste against the departmental health rules (RSD) is punished by a 3rd-class fine (article 13).
+Starting a fire in woods or forests that belong to someone else, through fires lit without enough care or fireworks used carelessly, is punished under article 322-5 of the penal code: up to 2 years in prison and a 30,000 euro fine (article 13, quoting the forestry code, articles L. 163-3 and L. 163-4).
