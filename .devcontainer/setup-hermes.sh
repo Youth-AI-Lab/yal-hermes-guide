@@ -16,7 +16,8 @@ sed "s#@WORKSPACE@#$guide#g" "$guide/hermes/config.yaml" > "$HOME/.hermes/config
 # The installer of this same commit (a tag can move), then the commit. No browser and no "computer use"
 # driver: this guide does not use them. --non-interactive: no setup wizard, no messaging gateway.
 tmp="$(mktemp -d)"
-curl -fsSL "https://raw.githubusercontent.com/NousResearch/hermes-agent/$HERMES_COMMIT/scripts/install.sh" \
+# --retry: GitHub sometimes answers 429 (too many requests) to a shared address (CI, 2026-11-02).
+curl -fsSL --retry 5 --retry-delay 15 "https://raw.githubusercontent.com/NousResearch/hermes-agent/$HERMES_COMMIT/scripts/install.sh" \
   -o "$tmp/install.sh"
 bash "$tmp/install.sh" --commit "$HERMES_COMMIT" --non-interactive --skip-browser --skip-computer-use
 rm -rf "$tmp"
