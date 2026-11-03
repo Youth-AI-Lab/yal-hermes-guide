@@ -4,7 +4,7 @@ title: "Charente-Maritime (La Rochelle): what fire use is forbidden"
 description: "What fire use is forbidden in Charente-Maritime, including barbecues."
 resource: https://www.charente-maritime.gouv.fr/contenu/telechargement/85472/601661/file/AP26EB142-Usages_du_feu_2026_04_30.pdf
 tags: [charente-maritime, regulation]
-status: draft
+status: stable
 language: en
 sources:
   - { id: source, resource: ../corpus/30-charente-maritime-arrete-26EB142.pdf }
@@ -12,7 +12,9 @@ generated: { by: claude_code/claude-opus-5-5, at: 2026-10-20T00:00:00Z }
 verified:
   - { by: process:quote-check, at: 2026-10-20T00:00:00Z }
   - { by: process:cross-review-codex-agy-copilot, at: 2026-10-20T00:00:00Z }
-review_note: "Human check of 2026-10-20 no longer covers this text: changed on 2026-11-01 after a measured check against the order; to be checked again by a person."
+  - { by: process:quote-check, at: 2026-11-02T00:00:00Z }
+  - { by: human:sebastien-nedjar, at: 2026-11-02T00:00:00Z }
+review_note: "Checked by a person on 2026-11-02 against the quotes of a page-by-page OCR of the order (sentence and page for each line), not against the scanned PDF itself."
 ---
 # Charente-Maritime (La Rochelle): what fire use is forbidden
 
