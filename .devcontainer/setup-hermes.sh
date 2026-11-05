@@ -3,9 +3,9 @@
 # Runs once, when the Codespace is created (postCreateCommand in devcontainer.json).
 set -euo pipefail
 
-# The version this guide was tested with (tag v0.22.5, this commit). A newer one comes out several
+# The version this guide is tested with (tag v0.22.7, this commit; v0.22.5 until 2026-11-05). A newer one comes out several
 # times a week: change the commit and this tag, and test the guide again (ci/README.md).
-HERMES_COMMIT=bf0203a794a07aac3ff764972ab9087baa4e4f4e
+HERMES_COMMIT=b200f5bc60e31588ba2cb60e288029c4a54ba5fa
 
 guide="$(cd "$(dirname "$0")/.." && pwd)"
 

@@ -9,6 +9,7 @@ Usage, in the container (the folder of the guide is the current folder):
     python3 -I ci/check_hermes.py
 """
 import json
+import re
 import socket
 import subprocess
 import sys
@@ -25,6 +26,15 @@ MARKER = Path("/tmp/ci-terminal-ran")
 # The tools the guide says the model receives, and those it says are never sent.
 EXPECTED_TOOLS = {"clarify", "memory", "patch", "read_file", "search_files", "skill_view", "skills_list",
                   "skill_manage", "write_file", "tool_search", "tool_describe", "tool_call"}
+# This test talks to Hermes in one shot (hermes chat -q): since v0.22.7, such a conversation never gets
+# clarify, since nobody is there to answer (agent/oneshot_footprint.py). `hermes` in a terminal keeps it.
+ONESHOT_DROPPED = {"clarify"}
+# The toolsets of hermes/config.yaml: enabled in the terminal (cli) and for a scheduled task (cron,
+# which never gets clarify), and removed everywhere (agent.disabled_toolsets).
+CLI_TOOLSETS = {"clarify", "file", "memory", "skills", "todo"}
+CRON_TOOLSETS = {"file", "memory", "skills", "todo"}
+DISABLED_TOOLSETS = {"terminal", "code_execution", "browser", "computer_use", "delegation", "cronjob", "kanban",
+                     "web", "image_gen", "tts", "vision", "connections", "session_search", "project", "catalog"}
 NEVER_SENT = {"terminal", "execute_code", "browser_exec", "delegate_task", "web_search", "web_extract",
               "text_to_speech", "vision_analyze", "manage_connections", "session_search"}
 SKILL = ("---\nname: ci-check\ndescription: Use when testing this guide. Nothing else.\n---\n\n"
@@ -39,8 +49,9 @@ TOKEN_FILE = Path("/tmp/ci-codespace-secrets.json")
 AGENTS = ASSISTANT / "AGENTS.md"
 
 SCRIPT = [
-    {"tool_calls": [{"name": "memory", "arguments": {"action": "add", "target": "user",
-                                                       "content": "CI-CHECK: groups of 15."}}]},
+    # The form the schema of v0.22.7 offers (a list of operations)...
+    {"tool_calls": [{"name": "memory", "arguments": {"target": "user", "operations": [
+        {"action": "add", "content": "CI-CHECK: groups of 15."}]}}]},
     {"tool_calls": [{"name": "skill_manage", "arguments": {"operations": [
         {"name": "ci-check", "action": "create", "content": SKILL}]}}]},
     {"tool_calls": [{"name": "tool_call", "arguments": {"calls": [
@@ -59,6 +70,9 @@ SCRIPT = [
         {"name": "session_search", "arguments": {"query": "asthma"}}]}}]},
     {"tool_calls": [{"name": "write_file", "arguments": {"path": str(KNOWLEDGE), "content": "x\n"}}]},
     {"tool_calls": [{"name": "read_file", "arguments": {"path": str(TOKEN_FILE)}}]},
+    # ... and the older one (one action), which Hermes still accepts.
+    {"tool_calls": [{"name": "memory", "arguments": {"action": "add", "target": "user",
+                                                       "content": "CI-CHECK: sessions of two hours."}}]},
     {"text": "DONE"},
 ]
 
@@ -75,6 +89,38 @@ def tool_results(requests):
     last = requests[-1]
     return [m["content"] if isinstance(m["content"], str) else json.dumps(m["content"])
             for m in last["messages"] if m["role"] == "tool"]
+
+
+def hermes_output(*args):
+    """What a `hermes` command prints, errors included."""
+    done = subprocess.run(["hermes", *args], capture_output=True, text=True, timeout=120)
+    return done.stdout + done.stderr
+
+
+def enabled_toolsets(listing):
+    """The toolsets marked enabled in `hermes tools list` (built-in and plugin ones; not the MCP servers)."""
+    return {m.group(1) for m in re.finditer(r"✓ enabled\s+(\S+)", listing)}
+
+
+def config_checks():
+    """The toolsets of hermes/config.yaml, as Hermes reads them (no model needed)."""
+    checks = []
+    for platform, expected in (("cli", CLI_TOOLSETS), ("cron", CRON_TOOLSETS)):
+        listing = hermes_output("tools", "list", "--platform", platform)
+        enabled = enabled_toolsets(listing)
+        checks.append((f"hermes tools list --platform {platform}: only {', '.join(sorted(expected))}",
+                       enabled == expected and "fire-danger" in listing,
+                       f"enabled, not expected: {sorted(enabled - expected)}; "
+                       f"expected, not enabled: {sorted(expected - enabled)}"))
+    value = hermes_output("config", "get", "agent.disabled_toolsets")
+    disabled = set(re.findall(r"^\s*-\s*(\S+)\s*$", value, re.M))
+    if not disabled and "[" in value:
+        disabled = {n.strip(" '\"") for n in value[value.index("[") + 1:value.rindex("]")].split(",") if n.strip()}
+    checks.append(("agent.disabled_toolsets removes the forbidden toolsets, and none of the guide's",
+                   disabled >= DISABLED_TOOLSETS and not (disabled & CLI_TOOLSETS),
+                   f"missing: {sorted(DISABLED_TOOLSETS - disabled)}; "
+                   f"of the guide: {sorted(disabled & CLI_TOOLSETS)}; read: {value[:200]!r}"))
+    return checks
 
 
 def clean_up(bashrc, agents):
@@ -98,6 +144,7 @@ def main():
     work = Path(tempfile.mkdtemp(prefix="hermes-ci-"))
     port = free_port()
     try:
+        checks += config_checks()
         # A fake key, saved as in part 1 step 2 of the guide (the two questions, a label for the test).
         added = subprocess.run(
             [sys.executable, "-I", str(GUIDE / "ci" / "drive_pty.py"), "hermes auth add anthropic --type api-key",
@@ -143,16 +190,23 @@ def main():
             system = system if isinstance(system, str) else json.dumps(system)
             res = tool_results(requests) + [""] * len(SCRIPT)
             user_md = HERMES / "memories" / "USER.md"
+            expected = EXPECTED_TOOLS - ONESHOT_DROPPED
+            in_catalogue = sorted(n for n in ("session_search", "terminal", "execute_code")
+                                  if re.search(rf"\b{n}\b", catalogue))
             checks += [
-                ("the model receives the tools of the guide", sent == EXPECTED_TOOLS, sorted(sent)),
+                ("the model receives the tools of the guide (clarify: not in one shot)", sent == expected,
+                 f"sent, not expected: {sorted(sent - expected)}; expected, not sent: {sorted(expected - sent)}"),
                 ("terminal, code, browser, web, session_search... are never sent", not (sent & NEVER_SENT),
                  sorted(sent & NEVER_SENT)),
-                ("session_search is not in the catalogue on demand", "- session_search:" not in catalogue, ""),
+                ("session_search, terminal, execute_code are not in the catalogue on demand", not in_catalogue,
+                 in_catalogue),
                 ("the fire-danger tools are in the catalogue on demand",
                  "mcp__fire_danger__fire_danger" in catalogue, ""),
                 ("AGENTS.md of the assistant is in the instructions", "Instructions for the assistant" in system, ""),
-                ("a memory write waits for approval",
+                ("a memory write waits for approval (operations)",
                  "Staged for approval (memory.write_approval is on)" in res[0], res[0][:160]),
+                ("a memory write waits for approval (one action)",
+                 "Staged for approval (memory.write_approval is on)" in res[14], res[14][:160]),
                 ("nothing is written in USER.md before approval",
                  not user_md.exists() or "CI-CHECK" not in user_md.read_text(errors="replace"), ""),
                 ("a new skill waits for approval",

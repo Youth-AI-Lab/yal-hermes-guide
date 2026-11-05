@@ -52,16 +52,16 @@ configuration of this guide asks you first: each proposal waits until you approv
 **In a Codespace, with the dangerous tools off.** Out of the box, Hermes can run commands on the
 computer, browse the web, control the mouse and the keyboard, and start other agents. Its own
 security page says that "the only security boundary against an adversarial LLM is the operating
-system" ([SECURITY.md](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/SECURITY.md)). So
+system" ([SECURITY.md](https://github.com/NousResearch/hermes-agent/blob/v0.22.7/SECURITY.md)). So
 this guide runs it in a Codespace, a computer apart from yours, with only the tools an assistant
 needs: read files, write only in its folder of plans, its memory, its skills, and one tool of the
 workshops.
 
 **Tested, with the limits we found.** Hermes Agent changes several times a week: this guide is
-written for **version 0.22.5** (October 2026), installed at that exact version. Each safety rule is
+written for **version 0.22.7** (November 2026), installed at that exact version. Each safety rule is
 checked by a test that runs at each change of the guide ([part 6](#part-6---safety-what-the-assistant-may-do)),
-and six questions were asked to a real model (Claude Sonnet 5.5) on 29 October 2026. Where something
-was not tested, the guide says so.
+and six questions were asked to a real model (Claude Sonnet 5.5) on 29 October 2026, with version
+0.22.5. Where something was not tested, the guide says so.
 
 ### Is this guide for you?
 
@@ -157,9 +157,10 @@ says that it collects no telemetry, its developer documentation describes this o
 
 1. Open <https://codespaces.new/Youth-AI-Lab/yal-hermes-guide> and sign in to GitHub.
 2. Click **Create codespace**.
-3. Wait. The first time, the Codespace installs Hermes: about four minutes in all, measured once in
-   a real Codespace, with its creation (the installation took 99 and 124 s on our computer with
-   the same image).
+3. Wait. The first time, the Codespace installs Hermes. With Hermes 0.22.5, this took about four
+   minutes, with the creation of the Codespace, measured once in a real Codespace. With Hermes
+   0.22.7, the installation took longer on our computer: 159 and 175 s instead of 99 and 124 s, in
+   a local container. In a real Codespace: TO BE COMPLETED.
 
 **What you should see.** VS Code in your browser, with the files of the guide on the left, and a
 terminal at the bottom that says **"Welcome! Start the assistant of this guide with: hermes"**. The
@@ -193,7 +194,7 @@ shows its label, never the key.
 
 ### Or an OpenRouter key (not tested)
 
-**Nothing in this section was tested.** It follows Hermes's documentation for v0.22.5. The questions
+**Nothing in this section was tested.** It follows Hermes's documentation for v0.22.7. The questions
 and the costs of this guide were measured with an Anthropic key and Claude Sonnet 5.5: they say
 nothing about another model. The rule stays the same: never with young people.
 
@@ -228,7 +229,7 @@ with a **Credit limit**. Instead of step 2:
 3. In your [privacy settings](https://openrouter.ai/settings/privacy), refuse the providers that may
    train on your data, for paid and for free models. `provider_routing` does not cover the side tasks
    of Hermes, such as the title of a conversation or the summary of a long one
-   ([its documentation](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/website/docs/user-guide/configuration.md#openrouter-routing--pareto-code-for-auxiliary-tasks)).
+   ([its documentation](https://github.com/NousResearch/hermes-agent/blob/v0.22.7/website/docs/user-guide/configuration.md#openrouter-routing--pareto-code-for-auxiliary-tasks)).
    If the main model fails, its code can also send them to a free model.
 
 Then start the assistant as in step 3. For the data and the terms, read the
@@ -240,9 +241,10 @@ Then start the assistant as in step 3. For the data and the terms, read the
 hermes
 ```
 
-**What you should see.** A box **"Hermes Agent v0.22.5"** with the list of the tools and skills (its
-last line counts them: **"12 tools · 54 skills"**), then **"Welcome to Hermes Agent! Type your message
-or /help for commands."** and a line where you type.
+**What you should see.** A box **"Hermes Agent v0.22.7"** with the list of the tools and skills (its
+last line counts them: **"12 tools · 40 skills"**), then **"Welcome to Hermes Agent! Type your message
+or /help for commands."** and a line where you type. The picture below was taken with version 0.22.5,
+which counted 54 skills (a picture of 0.22.7: TO BE COMPLETED).
 
 ![The first screen of Hermes. 1: the box Hermes Agent v0.22.5, with the tools, the MCP server fire-danger and the skills. 2: the number of skills, 54 skills. 3: the line where you type, Ask anything, or type / for commands.](images/hermes-welcome.png)
 
@@ -255,7 +257,7 @@ What fire danger vigilance levels exist in Charente-Maritime? Name your source.
 **What you should see.** The assistant reads `knowledge/index.md`, then the document it needs, and
 answers with the six levels (FAIBLE to EXCEPTIONNEL), the territory, the order that sets them, and
 **"Source: knowledge/30-charente-maritime-vigilance-levels.md"** (what Claude Sonnet 5.5 answered on
-29 October 2026; the words change from one answer to the next). Before the very first answer, Hermes
+29 October 2026, with Hermes 0.22.5; the words change from one answer to the next). Before the very first answer, Hermes
 downloads a package it needs: this happens only once. To leave, type `/exit`.
 
 > [!TIP]
@@ -287,14 +289,15 @@ model that records what it receives:
 
 | What | Size (characters) | Who wrote it |
 |---|---|---|
-| Hermes's own instructions, with `assistant/AGENTS.md` (under the title "Project Context") and the **list of its skills** (51 lines, 5,200 characters; the "54 skills" of the welcome box is another count) | about 16,400 | Nous Research, and you for `AGENTS.md` |
+| Hermes's own instructions, with `assistant/AGENTS.md` (under the title "Project Context") and the **list of its skills** (51 lines, 5,200 characters, with 0.22.5; not the same count as the welcome box) | about 16,400 | Nous Research, and you for `AGENTS.md` |
 | The memory: `USER PROFILE` and `MEMORY` blocks | up to 1,375 and 2,200 | **the assistant**, after your approval |
 | The description of the 12 tools it may use | about 18,600 | Nous Research |
 | A one-line entry for each tool of the MCP server | a few lines | the author of the server |
 
-Measured with Hermes 0.22.5 and the configuration of this guide (29 October 2026). Without this
-configuration, Hermes sends **20 tools** (37,500 characters), among them a terminal, a browser and
-the control of other agents.
+Measured with Hermes 0.22.5 and the configuration of this guide (29 October 2026); not measured
+again with 0.22.7, which comes with fewer skills of its own. Without this configuration, Hermes 0.22.5
+sent **20 tools** (37,500 characters), among them a terminal, a browser and the control of other
+agents.
 
 **The past conversations are not in it.** Hermes has a tool, `session_search`, that searches all
 your past conversations and brings back what it finds. We tried it: in a new conversation, the model
@@ -314,7 +317,7 @@ The facilitator works with groups of 15-year-olds in La Rochelle.
 > [!NOTE]
 > **Compare with the workshops.** In the workshops, you write `AGENTS.md`, you add the documents,
 > you choose the skills: everything that enters the context comes from you. Here, Hermes also comes
-> with about fifty skills of its own (the welcome box counts them), and the agent proposes its
+> with about forty skills of its own (the welcome box counts them), and the agent proposes its
 > memory and new skills. The question "who decides?" gets a new answer: you, at each approval.
 
 ---
@@ -417,9 +420,10 @@ line): it shows the whole text of the proposed skill.
 
 > [!NOTE]
 > Hermes refuses, when you approve it, a skill made by the assistant whose description is longer
-> than 60 characters ("new skills must fit the 60-char system-prompt budget"): this is the line
-> sent with every question. The refused proposal stays in the list: type `/skills reject` and its
-> code, then ask: "Propose this skill again with a description of 60 characters or less."
+> than 60 characters, and also a change to a description if the new one is longer than 60
+> characters ("a skill description must fit the 60-char skill index"). The description is the line
+> sent with every question. The refused proposal stays in the list: type `/skills reject` and its code, then ask: "Propose this skill again with a
+> description of 60 characters or less."
 
 ### A skill you write
 
@@ -539,11 +543,17 @@ mode (read in Hermes's code; the test does not try it, because nobody can answer
   `/memory approval` or `/skills approval`: each one changes a rule of this guide. Never type
   `/update` (a version this guide has not tested), `/init` (it rewrites the instructions of the
   assistant) or `/debug` (it uploads your logs, with the text of your questions, to share them).
+- **Only `hermes`, in the terminal.** Never start `hermes webapp`, the desktop app of Hermes or
+  `hermes --tui`: these screens give the assistant more tools. The configuration of this guide
+  removes two of them. But the desktop app and `hermes webapp` add one more, which cannot be turned
+  off (read in Hermes's code, **not tested**). Never use `hermes cron`
+  (tasks that run alone, later, with nobody to approve them) or `hermes kanban` (several agents that
+  share tasks).
 - **Skills you install yourself are not checked.** `hermes skills install` adds a skill without the
   approval of this guide. This guide needs none; if you install one, read all its files first, as
-  Hermes's [security page](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/SECURITY.md)
+  Hermes's [security page](https://github.com/NousResearch/hermes-agent/blob/v0.22.7/SECURITY.md)
   asks.
-- **A newer Hermes may behave differently.** The guide installs version 0.22.5 and its test checks
+- **A newer Hermes may behave differently.** The guide installs version 0.22.7 and its test checks
   it. Do not run `hermes update`.
 
 Each time you start `hermes`, it also starts a helper in the background (its log is `gateway.log`),
@@ -596,8 +606,8 @@ organisation. Hermes's documentation asks for a model that can call tools and a 
 (`gemma4:31b`, 24 GB of memory or more)
 ([Hermes with Ollama](https://hermes-agent.nousresearch.com/docs/guides/local-ollama-setup)).
 
-**What we measured** (29 October 2026, a laptop with a 6 GB graphics card, Ollama 0.40.8, the
-configuration of this guide, the question of part 1):
+**What we measured** (29 October 2026, Hermes 0.22.5, a laptop with a 6 GB graphics card, Ollama
+0.40.8, the configuration of this guide, the question of part 1; not measured again with 0.22.7):
 
 | Model (from the local AI guide) | What happened | Time |
 |---|---|---|
@@ -612,8 +622,8 @@ model.** With a larger model, on a computer with much more memory: **not tested*
 
 Each question sends the instructions, the memory and the descriptions of the tools: about 35,000
 characters before your own words ([part 2](#part-2---what-enters-the-context)), and again with each
-tool the assistant uses. Measured on 29 October 2026 with Claude Sonnet 5.5, as estimated by Hermes
-from Anthropic's prices:
+tool the assistant uses. Measured on 29 October 2026 with Claude Sonnet 5.5 and Hermes 0.22.5, as
+estimated by Hermes from Anthropic's prices (not measured again with 0.22.7):
 
 | Question | Calls to the model | Estimated cost |
 |---|---|---|
@@ -634,9 +644,9 @@ With an OpenRouter key, the figures above do not apply: TO BE COMPLETED (not mea
 
 ## Limits to know
 
-- **A real model was tried with six questions only** (Claude Sonnet 5.5, 29 October 2026). Not
-  tested: whether the assistant proposes a skill by itself, and a long conversation.
-- **Hermes changes fast.** The guide is pinned to 0.22.5; its documentation online describes the
+- **A real model was tried with six questions only** (Claude Sonnet 5.5, Hermes 0.22.5, 29 October
+  2026). Not tested: whether the assistant proposes a skill by itself, and a long conversation.
+- **Hermes changes fast.** The guide is pinned to 0.22.7; its documentation online describes the
   latest version.
 - **No group, no young people, no messaging app** ([why](#this-guide-is-for-you-not-for-young-people)).
 - **OpenRouter** ([section](#or-an-openrouter-key-not-tested)) **and other providers**: Hermes
@@ -721,7 +731,7 @@ the terminal, in the folder of the guide: `bash .devcontainer/setup-hermes.sh` (
   [documentation](https://hermes-agent.nousresearch.com/docs/),
   [memory](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory),
   [skills](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills),
-  [security](https://github.com/NousResearch/hermes-agent/blob/v0.22.5/SECURITY.md)
+  [security](https://github.com/NousResearch/hermes-agent/blob/v0.22.7/SECURITY.md)
 - The Youth AI Lab [workshop kit](https://github.com/Youth-AI-Lab/yal-workshop-kit), and the
   [OpenCode](https://github.com/Youth-AI-Lab/yal-opencode-guide),
   [Open WebUI](https://github.com/Youth-AI-Lab/yal-openwebui-guide),
@@ -734,18 +744,25 @@ the terminal, in the folder of the guide: `bash .devcontainer/setup-hermes.sh` (
 
 ## About
 
-Written for the Youth AI Lab project (Erasmus+), October 2026, for Hermes Agent v0.22.5 (commit
-`bf0203a`). **Image tested**: `2026.10.31` of the workshops (`2026.10.30` for the measures of
-29 October). **Image used**: the one pinned in
-[`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) (`2026.10.36` on 30 October
-2026), which the workflow of [`ci/README.md`](ci/README.md) opens at each change; the measures and
-the questions to the real model were not repeated with it. Checked on 29 October 2026 in a container
-made from this repository: the installation, the configuration, the measures of part 2, the
-screens of parts 1, 3 and 4 (with a fake key and a fake model), each line of the table of part 6, by
-[`ci/check_hermes.py`](ci/check_hermes.py), which runs at each change
-([`ci/README.md`](ci/README.md)), and six questions to Claude Sonnet 5.5 with a real key (answers,
-tools used, costs). In a real Codespace (image `2026.10.30`), we ran the installation and
-`ci/check_hermes.py` only (22 PASS, 0 FAIL, before the token check was added), not the whole guide.
+Written for the Youth AI Lab project (Erasmus+), October 2026, updated November 2026, for Hermes
+Agent v0.22.7 (commit `b200f5b`; v0.22.5, commit `bf0203a`, until 5 November 2026). **Image
+used**: the one pinned in [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json)
+(`2026.11.4` on 5 November 2026), which the workflow of [`ci/README.md`](ci/README.md) opens at each
+change. The test [`ci/check_hermes.py`](ci/check_hermes.py) checks each line of the table of
+part 6 at each change.
+
+**With Hermes 0.22.5 (29 October 2026)**, image `2026.10.31` (`2026.10.30` for the measures), in a
+container made from this repository: the installation, the configuration, the measures of part 2,
+the screens of parts 1, 3 and 4 (with a fake key and a fake model), `ci/check_hermes.py`, and six
+questions to Claude Sonnet 5.5 with a real key (answers, tools used, costs). In a real Codespace
+(image `2026.10.30`): the installation and `ci/check_hermes.py` only (22 PASS, 0 FAIL, before the
+token check was added), not the whole guide.
+
+**With Hermes 0.22.7 (5 November 2026, image `2026.11.4`, container only)**, fake key and fake
+model: the installation, the configuration, the welcome box of part 1 (its text, not its picture),
+`hermes skills list` and `ci/check_hermes.py` (27 PASS, 0 FAIL). Not done again: the measures of
+part 2, the other screens, the real model, a real Codespace.
+
 Not tested: a skill proposed by the assistant itself, a long conversation.
 
 The documents of `assistant/knowledge/` are summaries 30 to 32 of the workshop kit, and the MCP

@@ -30,8 +30,10 @@ jobs:
       - name: Hermes version and configuration
         run: |
           devcontainer exec --workspace-folder . bash -lc 'hermes --version' | tee version.txt
-          grep -q "v0.22.5" version.txt
-          devcontainer exec --workspace-folder . bash -lc 'hermes tools list; hermes mcp list'
+          grep -q "v0.22.7" version.txt
+          # Printed for the log; ci/check_hermes.py checks the toolsets of cli and cron and
+          # agent.disabled_toolsets.
+          devcontainer exec --workspace-folder . bash -lc 'hermes tools list; hermes tools list --platform cron; hermes mcp list; hermes config check'
 
       - name: Part 6 - each safety rule, with a fake model
         timeout-minutes: 10

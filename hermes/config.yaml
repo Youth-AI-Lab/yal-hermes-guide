@@ -1,7 +1,7 @@
 # The configuration of Hermes Agent for this guide. Copied to ~/.hermes/config.yaml when the
 # Codespace is created (.devcontainer/setup-hermes.sh), before Hermes is installed: the installer
 # keeps it. Hermes takes its own default value for everything not written here.
-# Checked with Hermes Agent v0.22.5.
+# Checked with Hermes Agent v0.22.7 (v0.22.5 until 5 November 2026).
 
 # The model. The key is not here: you save it with `hermes auth add anthropic --type api-key`
 # (part 1), and Hermes keeps it in ~/.hermes/auth.json, readable only by you.
@@ -19,6 +19,30 @@ model:
 # Hermes enables all of them by default.
 platform_toolsets:
   cli: [clarify, file, memory, skills, todo]
+  # Scheduled tasks (`hermes cron`) run alone, with nobody to approve anything. This guide never
+  # makes one, and you should not either; if one were made anyway, it would get these tools, not
+  # Hermes's default ones (terminal, web, session_search...). No clarify here: Hermes never gives
+  # it to a scheduled task, since nobody is there to answer (cron/scheduler.py).
+  cron: [file, memory, skills, todo]
+
+# Toolsets removed everywhere, after the lists above. Two reasons:
+# - A scheduled task can name its own tools when it is made. Hermes then removes these toolsets
+#   from them anyway (cron/scheduler.py), so such a task cannot get a terminal, the web or
+#   session_search back. The same names as in the comment of platform_toolsets, plus kanban
+#   (several agents that share tasks).
+# - project (workspaces) and catalog (installing plugins or skills) are added only by the
+#   graphical screens of Hermes (`hermes webapp`, the desktop app; `--tui` adds project), whatever
+#   the lists above say. A third one, desktop_ui, cannot be removed: that is why this guide uses
+#   only `hermes` in the terminal.
+# Never add clarify, file, memory, skills or todo here: the assistant would lose them.
+agent:
+  disabled_toolsets: [terminal, code_execution, browser, computer_use, delegation, cronjob, kanban,
+                      web, image_gen, tts, vision, connections, session_search, project, catalog]
+
+# `hermes` opens the classic screen in the terminal, the one this guide shows, not the TUI
+# (already the default of Hermes 0.22.7; written here in case a newer default changes it).
+display:
+  interface: cli
 
 # Commands that Hermes finds dangerous ask you first. With the terminal off, this only matters if
 # you turn it back on: by default ("smart"), another model decides for you.
@@ -46,7 +70,7 @@ auxiliary:
   background_review:
     enabled: false
 
-# No "update available" message: this guide is tested with version 0.22.5 only.
+# No "update available" message: this guide is tested with version 0.22.7 only.
 updates:
   check: false
 

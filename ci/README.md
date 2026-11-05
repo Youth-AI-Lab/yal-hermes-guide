@@ -11,10 +11,24 @@ No key and no real model. [`fake_llm.py`](fake_llm.py) plays the model: an OpenA
 address that records what Hermes sends and answers with tool calls chosen in advance, the way a
 model that obeys a malicious document could. [`check_hermes.py`](check_hermes.py) starts it, points
 Hermes at it for one conversation (`hermes chat --provider custom --base-url …`, without changing
-the configuration), then reads what Hermes answered to each call and what changed on the disk:
+the configuration), then reads what Hermes answered to each call and what changed on the disk.
+Before the conversation, it also reads the configuration as Hermes understands it:
 
-- the tools sent to the model (part 2), and those never sent (`session_search` included);
-- a memory and a skill proposed: staged, nothing written before approval (parts 3 and 4);
+- `hermes tools list` and `hermes tools list --platform cron`: only the toolsets of the guide are
+  enabled (`clarify`, `file`, `memory`, `skills`, `todo`; the same without `clarify` for a
+  scheduled task), and the MCP server fire-danger is there;
+- `hermes config get agent.disabled_toolsets`: it removes the toolsets the guide forbids (terminal,
+  code, browser, web, `session_search`, other agents, scheduled tasks, kanban…, and `project`,
+  `catalog`), and none of the five above.
+
+Then, in the conversation:
+
+- the tools sent to the model (part 2), and those never sent (`session_search` included); when the
+  list is wrong, it prints the tools sent but not expected, and the tools expected but not sent;
+- `session_search`, `terminal` and `execute_code`: not even named in the catalogue on demand;
+- a memory proposed in its two forms (a list of operations, the form of Hermes 0.22.7, and one
+  action, the older form) and a skill proposed: staged, nothing written before approval (parts 3
+  and 4);
 - the fire-danger tool through the catalogue on demand (part 5);
 - the terminal and `session_search`, directly and through `tool_call`: refused;
 - a file written in `assistant/plans/`, in `assistant/knowledge/`, outside, and `~/.bashrc`: only
@@ -23,6 +37,12 @@ the configuration), then reads what Hermes answered to each call and what change
   questions), then `~/.hermes/auth.json` and `~/.hermes/.env` read: refused;
 - a file with a fake GitHub token, like the one a Codespace keeps in `/workspaces/.codespaces/shared/`:
   read, but the token is masked before the model sees it.
+
+**`clarify` is not expected in this test.** Since Hermes 0.22.7, a conversation in one shot
+(`hermes chat -q`, as here) never gets the tool `clarify` (the assistant asks you a question),
+since nobody is there to answer: read in Hermes's code (`agent/oneshot_footprint.py`). So the test
+expects the 11 other tools; on 5 November 2026 it received exactly these 11. `hermes` in a terminal,
+as in the guide, keeps it: its welcome box listed `clarify` among its 12 tools the same day.
 
 It does not ask to write `AGENTS.md`: Hermes always asks a person first for its files of
 instructions, and in this test nobody can answer (it would wait five minutes, then refuse).
@@ -36,18 +56,22 @@ To run it by hand, in a terminal of the Codespace, in the folder of the guide:
 python3 -I ci/check_hermes.py
 ```
 
-**What you should see.** One line `PASS` per rule, then `23 PASS / 0 FAIL`.
+**What you should see.** One line `PASS` per rule, then `27 PASS / 0 FAIL` (Hermes 0.22.7,
+5 November 2026).
 
 ## When you change the guide
 
 - **A new version of Hermes**: change the commit and the tag named in `setup-hermes.sh`, then run the workflow. The
   names of the tools, the messages that the test reads, and the screens of the README may change.
-- **The configuration** (`hermes/config.yaml`): run the workflow; change `EXPECTED_TOOLS` in
-  `check_hermes.py` if you change the list of tools on purpose.
+- **The configuration** (`hermes/config.yaml`): run the workflow. If you change the list of tools
+  on purpose, change in `check_hermes.py` `EXPECTED_TOOLS`, `CLI_TOOLSETS`, `CRON_TOOLSETS` and
+  `DISABLED_TOOLSETS`. `ONESHOT_DROPPED` lists the tools Hermes never gives to a conversation in one
+  shot (only `clarify` with 0.22.7): check it again with each new version.
 
 ## What it does not check
 
 A real model (six questions were asked by hand on 29 October 2026: see the README). The screens
-of `hermes` in a real terminal (they were read once, with a fake model, on 29 October 2026). A real
+of `hermes` in a real terminal (they were read once, with a fake model, on 29 October 2026, with
+Hermes 0.22.5; the welcome box was read again as text on 5 November 2026, with 0.22.7). A real
 Codespace in CI (the workflow uses the same image and the same installation, on a machine of GitHub;
 a real Codespace gave 22 PASS / 0 FAIL on 29 October 2026, before the token check was added).
