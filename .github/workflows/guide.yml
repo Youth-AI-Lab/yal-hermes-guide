@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Dev Containers command line
-        run: npm install -g @devcontainers/cli@0.89.0
+        run: npm install -g @devcontainers/cli@0.90.0
 
       - name: Open the container (installs Hermes)
         timeout-minutes: 15
